@@ -6,13 +6,17 @@ swapi_urls = ['https://swapi.co/api/films/', 'https://swapi.co/api/people/', 'ht
 
 user_search = input('Search:')
 
+data = []
 
 for url in swapi_urls:
 
-    payload = {
+    params = {
     'search': user_search
     }
 
-    r = requests.get(url, params=payload)
-    data = r.json()
-    pprint(data)
+    r = requests.get(url, params=params)
+    data.append(r.json())
+
+for api in data:
+    if api['count'] >= 1:
+        pprint(api)
