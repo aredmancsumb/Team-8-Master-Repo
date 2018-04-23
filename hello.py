@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+from search import *
 
 # App config.
 DEBUG = True
@@ -11,7 +12,6 @@ app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 class ReusableForm(Form):
     name = TextField('Search:', validators=[validators.required()])
 
-
 @app.route("/", methods=['GET', 'POST'])
 def hello():
     form = ReusableForm(request.form)   #for is the users search
@@ -20,6 +20,7 @@ def hello():
     if request.method == 'POST':
         name=request.form['name']
         print (name)  #prints users search to the console
+        searchApi(name)
     return render_template('hello.html', form=form)
 
 
