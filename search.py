@@ -18,5 +18,4 @@ def searchApi(user_search):
         for api in data:
             if api['count'] >= 1:
                 pprint(api)
-
-                #api in dictionary -> get info
+                #pprint(api['results'][0]['gender'])
