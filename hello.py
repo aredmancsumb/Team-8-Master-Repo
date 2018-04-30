@@ -14,14 +14,17 @@ class ReusableForm(Form):
 
 @app.route("/", methods=['GET', 'POST'])
 def hello():
+    result = None
     form = ReusableForm(request.form)   #for is the users search
     #print(form)
     #print (form.errors)
     if request.method == 'POST':
         name=request.form['name']
         print (name)  #prints users search to the console
-        searchApi(name)
-    return render_template('hello.html', form=form)
+        result = searchApi(name)
+        if result == None:
+            print('try again')
+    return render_template('hello.html', form=form, final = result)
 
 
 #@app.route('/page_info/<id>')
