@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>search</title>
@@ -9,7 +8,7 @@
             {{ form.csrf }}
 
             <div class="input text">
-                {{ form.name.label }} {{ form.name }}
+                <!--{{ form.name.label }} -->{{ form.name(placeholder='Search') }}
             </div>
 
             <div class="input submit">

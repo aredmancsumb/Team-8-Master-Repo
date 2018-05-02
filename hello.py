@@ -29,6 +29,10 @@ def hello():
 
     return render_template('hello.html', form=form, final = result)
 
+@app.route("/results", methods=['GET', 'POST'])
+def results():
+    return render_template('main.html')
+
 
 #@app.route('/page_info/<id>')
 #def page_info(id):
