@@ -4,15 +4,7 @@
         <title>search</title>
     <head>Enter a Name</head>
     <body>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message[1] }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+
         <form action="" method="post">
             {{ form.csrf }}
 
@@ -23,6 +15,10 @@
             <div class="input submit">
                 <input type="submit" value="Submit" />
                 <a href="http://127.0.0.1:5000/">back to search</a>
+        <head>Name:</head>      {{final}}
+          <head>Height:</head>    {{hei}}
+          <head>Gender:</head>    {{gen}}
+          <head>Birth Year:</head>    {{year}}
             </div>
         </form>
     </body>
