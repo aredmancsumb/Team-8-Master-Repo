@@ -23,7 +23,7 @@ def hello():
         name=request.form['name']
         #print (name)  #prints users search to the console
         result = searchPerson(name)
-        print(result)
+        
         if result == None:
             result = 'try again'
 
