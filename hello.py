@@ -39,7 +39,7 @@ def results():
         #print (name)  #prints users search to the console
         #print(result)
         #defineApi(name)
-        if result == None:
+        if result == []:
             result = ['try again']
     return render_template('main.html', form=form, final=result)
 
