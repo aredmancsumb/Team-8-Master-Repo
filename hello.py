@@ -36,12 +36,9 @@ def results():
     if request.method == 'POST':
         name=request.form['name']
         result = defineApi(name)
-        #print (name)  #prints users search to the console
-        #print(result)
-        #defineApi(name)
-        if result == None:
-            result = ['try again']
-    return render_template('main.html', form=form, final=result)
+        if result == []:
+            result = [[[["try again"]]]]
+    return render_template('main.html', form=form, final=result, user_search=name)
 
 
 if __name__ == "__main__":

@@ -4,25 +4,15 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
     </head>
     <body>
-      <!--<h1>Enter a name</h1>-->
-        <!--{% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message[1] }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}-->
         <form action="{{url_for('results')}}" method="post">
             {{ form.csrf }}
 
             <div class="input text">
-                <!--{{ form.name.label }} -->{{ form.name(placeholder='Search') }}
+                <!--{{ form.name.label }} -->{{ form.name(placeholder='Luke Skywalker') }}
             </div>
 
             <div class="input submit">
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Search" />
             </div>
         </form>
     </body>

@@ -1,22 +1,30 @@
 {% block content %}
+<html>
+    <head>
+        <title>Results</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/results.css') }}">
+    </head>
+    <body>
+        <div class="title">Results for "{{user_search}}"</div>
 
-  <div>
-    <h1>Results</h1>
-    <a href="{{url_for('hello')}}">back to search</a>
-  </div>
+        <a href="{{url_for('hello')}}">back to search</a>
 
-  <div>
-    {{final[0][0]}}{{final[0][1]}}
-    <br/><br/>
-    {{final[1][0]}}{{final[1][1]}}
-    <br/><br/>
-    {{final[2][0]}}{{final[2][1]}}
-    <br/><br/>
-    {{final[3][0]}}{{final[3][1]}}
-    <br/><br/>
-    {{final[4][0]}}{{final[4][1]}}
-    <br/><br/>
-    {{final[5][0]}}{{final[5][1]}}
-  </div>
+        <div class="container">
+            {% for results in final %}
+                {% for elems in results %}
 
+                    <table class='result'>
+                        <tr class="title_row"><td colspan="2"><h2 class="title">{{elems[1][1]}}</h2></td></tr>
+                        {% for finalelements in elems %}
+                            <tr>
+                                <td class="key">{{finalelements[0]}}</td>
+                                <td class="value">{{finalelements[1]}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </body>
+</html>
 {% endblock %}
