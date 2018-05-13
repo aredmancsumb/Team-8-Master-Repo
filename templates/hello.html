@@ -1,10 +1,10 @@
 <html>
     <head>
-        <title>search</title>
-    <head>Enter a Name</head>
+        <title>Search</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    </head>
     <body>
-
-        <form action="" method="post">
+        <form action="{{url_for('results')}}" method="post">
             {{ form.csrf }}
 
             <div class="input text">
@@ -13,22 +13,6 @@
 
             <div class="input submit">
                 <input type="submit" value="Submit" />
-                <a href="http://127.0.0.1:5000/">back to search</a><br />
-                <br />
-          <head>Name: </head>{{final[0]}}<br />
-          <br />
-          <head>Height: </head>{{final[1]}}<br />
-          <br />
-          <head>Mass: </head>{{final[2]}}<br />
-          <br />
-          <head>Gender: </head>{{final[3]}}<br />
-          <br />
-          <head>Birth Year: </head>{{final[4]}}<br />
-          <br />
-          <head>Skin color: </head>{{final[5]}}<br />
-          <br />
-          <head>Eye Color: </head>{{final[6]}}<br />
-
             </div>
         </form>
     </body>

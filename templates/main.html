@@ -1,12 +1,13 @@
-{% block title %}
-  Results
-{% endblock %}
-
 {% block content %}
 
   <div>
-    <p>results</p>
+    <h1>Results</h1>
     <a href="{{url_for('hello')}}">back to search</a>
+  </div>
+
+  <div>
+    {{final}}
+    <br/><br/>
   </div>
 
 {% endblock %}
