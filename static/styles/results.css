@@ -70,3 +70,7 @@ h2.title {
     color: gold;
     text-align: center;
 }
+
+div.extra_info {
+    margin-bottom: 20px;
+}
