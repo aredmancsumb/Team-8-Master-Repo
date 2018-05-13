@@ -5,6 +5,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/results.css') }}">
     </head>
     <body>
+        <img src="{{ url_for('static', filename='star_wars_logo11.png') }}" alt="">
         <div class="title">Results for "{{user_search}}"</div>
 
         <a href="{{url_for('hello')}}">back to search</a>
@@ -17,8 +18,8 @@
                         <tr class="title_row"><td colspan="2"><h2 class="title">{{elems[1][1]}}</h2></td></tr>
                         {% for finalelements in elems %}
                             <tr>
-                                <td class="key">{{finalelements[0]}}</td>
-                                <td class="value">{{finalelements[1]}}</td>
+                                <td class="key">{{finalelements[0]}}<hr/></td>
+                                <td class="value">{{finalelements[1]}}<hr/></td>
                             </tr>
                         {% endfor %}
                     </table>
