@@ -42,5 +42,6 @@ def results():
     if result == []:
         extra_info = 'Please try again. For a detailed result, try searching for a name.'
     return render_template('main.html', form=form, final=result, user_search=name, extra_info=extra_info, full_name=full_name)
+
 if __name__ == "__main__":
     app.run()
