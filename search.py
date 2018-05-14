@@ -31,10 +31,33 @@ def defineApi(user_search):
             if api == data[5]:
                 results.append(searchVehicles(data[5]))
     if user_search == '':
-        results = []
+        results = ''
+    elif user_search in 'planets':
+        r = requests.get(swapi_urls[2], params={'search':''})
+        data.append(r.json())
+        results.append(searchPlanet(data[6]))
+    elif user_search in 'films':
+        r = requests.get(swapi_urls[0], params={'search':''})
+        data.append(r.json())
+        results.append(searchFilms(data[6]))
+    elif user_search in 'starships':
+        r = requests.get(swapi_urls[4], params={'search':''})
+        data.append(r.json())
+        results.append(searchPerson(data[6]))
+    elif user_search in 'species':
+        r = requests.get(swapi_urls[3], params={'search':''})
+        data.append(r.json())
+        results.append(searchPerson(data[6]))
+    elif user_search in 'vehicles':
+        r = requests.get(swapi_urls[5], params={'search':''})
+        data.append(r.json())
+        results.append(searchVehicles(data[6]))
+    else:
+        filter(user_search, ['people', 'persons', 'characters'])
+        r = requests.get(swapi_urls[1], params={'search':''})
+        data.append(r.json())
+        results.append(searchPerson(data[6]))
     return results
-
-
 
 def searchPerson(user_search):
     final = None
