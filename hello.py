@@ -30,16 +30,17 @@ def hello():
 
 @app.route("/results", methods=['GET', 'POST'])
 def results():
-    result = None
-
+    result = []
+    extra_info = ''
     form = ReusableForm(request.form)   #form is the users search
     if request.method == 'POST':
         name=request.form['name']
         result = defineApi(name)
-        if result == []:
-            result = [[[["try again"]]]]
-    return render_template('main.html', form=form, final=result, user_search=name)
-
-
+        full_name = result[0][0][1][1]
+    if name == '':
+        extra_info = 'Please enter a valid search term.'
+    if result == []:
+        extra_info = 'Please try again. For a detailed result, try searching for a name.'
+    return render_template('main.html', form=form, final=result, user_search=name, extra_info=extra_info, full_name=full_name)
 if __name__ == "__main__":
     app.run()
