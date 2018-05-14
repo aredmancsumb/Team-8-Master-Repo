@@ -35,13 +35,13 @@ def results():
         name = request.form['name']     #here we get the input from the user that's typed into the search bar
         result = defineApi(name)        #here we do the defineApi function from search.py which returns the results that go with the user input
         if name != '' and result != []:
-            full_name = result[0][0][1][1]
+            full_name = result[0][0][1][1]      #Navigates to the correct spot in the list saves the exact name from the results of defineApi to a new variable "full_name"
     if name == '':
         extra_info = 'Please enter a valid search term.'  #if the user doesn't enter a search term, they get this message
         full_name = 'Try Again'
     if result == []:
         extra_info = 'Please try again. For a detailed result, try searching for a name.'  #if there are no results found for the search term, you get this message
         full_name = 'Try Again'
-    return render_template('main.html', form=form, final=result, user_search=name, extra_info=extra_info, full_name=full_name)
+    return render_template('main.html', form=form, final=result, user_search=name, extra_info=extra_info, full_name=full_name)      #passes all neccesary variables to the results page "main.html"
 if __name__ == "__main__":
     app.run()
