@@ -15,11 +15,11 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-class ReusableForm(Form):
+class ReusableForm(Form):   #This the function that gets what the user typed into the search bar and stores into a variable
     name = TextField('Search:', validators=[validators.required()])
 
 @app.route("/", methods=['GET', 'POST'])
-def hello():
+def hello(): # the function that renders our first HTML page and asks the user to enter in a search
 
     form = ReusableForm(request.form)
 
