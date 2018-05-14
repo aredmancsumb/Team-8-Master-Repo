@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 from search import *
@@ -16,15 +15,6 @@ class ReusableForm(Form):
 def hello():
 
     form = ReusableForm(request.form)   #for is the users search
-    #print(form)
-    #print (form.errors)
-    if request.method == 'POST':
-        name=request.form['name']
-        #result = defineApi(name)
-        #print (name)  #prints users search to the console
-
-        #if result == None:
-            #rusult = 'try again'
 
     return render_template('hello.html', form=form)
 
@@ -32,9 +22,10 @@ def hello():
 def results():
     result = []
     extra_info = ''
+    name = ''
     form = ReusableForm(request.form)   #form is the users search
     if request.method == 'POST':
-        name=request.form['name']
+        name = request.form['name']
         result = defineApi(name)
     if name == '':
         extra_info = 'Please enter a valid search term.'
