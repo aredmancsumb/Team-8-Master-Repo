@@ -52,11 +52,11 @@ def defineApi(user_search):
     if user_search in 'starships':
         r = requests.get(swapi_urls[4], params={'search':''})
         data.append(r.json())
-        results.append(searchPerson(data[6]))
+        results.append(searchStarShips(data[6]))
     if user_search in 'species':
         r = requests.get(swapi_urls[3], params={'search':''})
         data.append(r.json())
-        results.append(searchPerson(data[6]))
+        results.append(searchSpecies(data[6]))
     if user_search in 'vehicles':
         r = requests.get(swapi_urls[5], params={'search':''})
         data.append(r.json())
