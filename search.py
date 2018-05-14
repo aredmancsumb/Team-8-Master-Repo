@@ -10,7 +10,7 @@ def defineApi(user_search):
     for url in swapi_urls:
 
         params = {
-        'search': user_search
+            'search': user_search
         }
 
         r = requests.get(url, params=params)
@@ -32,36 +32,53 @@ def defineApi(user_search):
                 results.append(searchVehicles(data[5]))
     return results
 
+    for api in data:
+        if api['count'] >= 1:
+            if api == data[0]:
+                results.append(searchFilms(data[0]))
+            if api == data[1]:
+                results.append(searchPerson(data[1]))
+            if api == data[2]:
+                results.append(searchPlanet(data[2]))
+            if api == data[3]:
+                results.append(searchSpecies(data[3]))
+            if api == data[4]:
+                results.append(searchStarShips(data[4]))
+            if api == data[5]:
+                results.append(searchVehicles(data[5]))
+    if user_search == '':
+        results = []
+    return results
+
+
+
 def searchPerson(user_search):
     final = None
     name_ = None
     height = None
     mass = None
     gender = None
+    hair_color = None
     birth_year = None
     skin_color = None
     eye_color = None
-    info = []
+    final_result = []
     index = 0
-    titles = ['Category', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Birth year: ', 'Skin color: ', 'Eye color: ']
-    print('people: ' + str(len(user_search['results'])))
+    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ']
+
     for results in user_search['results']:
-        category = 'People'
-        name_ = user_search['results'][index]['name']
-        height = user_search['results'][index]['height']
-        mass = user_search['results'][index]['mass']
-        gender = user_search['results'][index]['gender']
-        birth_year = user_search['results'][index]['birth_year']
-        skin_color = user_search['results'][index]['skin_color']
-        eye_color = user_search['results'][index]['eye_color']
+        info = ['People']
+        info.append(user_search['results'][index]['name'])
+        info.append(user_search['results'][index]['height'] + " cm")
+        info.append(user_search['results'][index]['mass'] + " kg")
+        info.append(user_search['results'][index]['gender'])
+        info.append(user_search['results'][index]['hair_color'])
+        info.append(user_search['results'][index]['birth_year'])
+        info.append(user_search['results'][index]['skin_color'])
+        info.append(user_search['results'][index]['eye_color'])
         index += 1
-        info.extend([category, name_, height, mass, gender, birth_year, skin_color, eye_color])
-    if len(results) > 1:
-        index += 1
-        zipped = list(zip(titles * index, info))
-    else:
-        zipped = list(zip(titles, info))
-    return zipped
+        final_result.append(list(zip(titles, info)))
+    return final_result
 
 def searchPlanet(user_search):
     final = None
@@ -71,26 +88,27 @@ def searchPlanet(user_search):
     diameter = None
     gravity = None
     population = None
-    info = []
+    climate = None
+    terrain = None
+    surface_water = None
+    final_result = []
     index = 0
-    titles = ['Category', 'Name: ', 'Diameter: ', 'Gravity: ', 'Population: ', 'Rotation period: ', 'Orbital period: ']
-    print('planet: ' + str(len(user_search['results'])))
+    titles = ['Category: ', 'Name: ', 'Diameter: ', 'Gravity: ', 'Population: ', 'Rotation period: ', 'Orbital period: ', 'Climate: ', 'Terrain: ', 'Surface Water: ']
+
     for results in user_search['results']:
-        category = 'Planets'
-        name_ = user_search['results'][index]['name']
-        rotation_period = user_search['results'][index]['rotation_period']
-        orbital_period = user_search['results'][index]['orbital_period']
-        diameter = user_search['results'][index]['diameter']
-        gravity = user_search['results'][index]['gravity']
-        population = user_search['results'][index]['population']
+        info = ['Planets']
+        info.append(user_search['results'][index]['name'])
+        info.append(user_search['results'][index]['diameter'] + ' km')
+        info.append(user_search['results'][index]['gravity'])
+        info.append(user_search['results'][index]['population'])
+        info.append(user_search['results'][index]['rotation_period'] + ' Hours')
+        info.append(user_search['results'][index]['orbital_period'] + ' Days')
+        info.append(user_search['results'][index]['climate'])
+        info.append(user_search['results'][index]['terrain'])
+        info.append(user_search['results'][index]['surface_water'] + '%')
         index += 1
-        info.extend([category, name_, rotation_period, orbital_period, diameter, gravity, population])
-    if len(results) > 1:
-        index += 1
-        zipped = list(zip(titles * index, info))
-    else:
-        zipped = list(zip(titles, info))
-    return zipped
+        final_result.append(list(zip(titles, info)))
+    return final_result
 
 def searchStarShips(user_search):
     final = None
@@ -99,33 +117,36 @@ def searchStarShips(user_search):
     cost_in_credits = None
     length = None
     crew = None
+    passengers = None
     cargo_capacity = None
     consumables = None
     hyperdrive_rating = None
+    max_atmosphering_speed = None
+    MGLT = None
     starship_class = None
-    info = []
+    manufacturer = None
+    final_result = []
     index = 0
-    titles = ['Category', 'Name: ', 'Model: ', 'Cost in credits: ', 'Length: ', 'Crew: ', 'Cargo capacity: ', 'Consumables: ', 'Hyperdrive rating: ', 'Starship class: ']
+    titles = ['Category: ', 'Name: ', 'Model: ', 'Cost in credits: ', 'Length: ', 'Manufacturer', 'Crew: ', 'Passengers:', 'Cargo capacity: ', 'Consumables: ', 'Hyperdrive rating: ', 'Max Atmosphering Speed:', 'Max Megalights per Hour:', 'Starship class: ']
 
     for results in user_search['results']:
-        category = 'Starships'
-        name_ = user_search['results'][index]['name']
-        model= user_search['results'][index]['model']
-        cost_in_credits= user_search['results'][index]['cost_in_credits']
-        length = user_search['results'][index]['length']
-        crew = user_search['results'][index]['crew']
-        cargo_capacity = user_search['results'][index]['cargo_capacity']
-        consumables = user_search['results'][index]['consumables']
-        hyperdrive_rating = user_search['results'][index]['hyperdrive_rating']
-        starship_class= user_search['results'][index]['starship_class']
+        info = ['Starships']
+        info.append(user_search['results'][index]['name'])
+        info.append(user_search['results'][index]['model'])
+        info.append(user_search['results'][index]['cost_in_credits'])
+        info.append(user_search['results'][index]['length'] + ' m')
+        info.append(user_search['results'][index]['manufacturer'])
+        info.append(user_search['results'][index]['crew'])
+        info.append(user_search['results'][index]['passengers'])
+        info.append(user_search['results'][index]['cargo_capacity'] + ' kg')
+        info.append(user_search['results'][index]['consumables'])
+        info.append(user_search['results'][index]['hyperdrive_rating'])
+        info.append(user_search['results'][index]['max_atmosphering_speed'])
+        info.append(user_search['results'][index]['MGLT'])
+        info.append(user_search['results'][index]['starship_class'])
         index += 1
-        info.extend([category, name_, model, cost_in_credits, length, crew, cargo_capacity, consumables, hyperdrive_rating, starship_class])
-    if len(results) > 1:
-        index += 1
-        zipped = list(zip(titles * index, info))
-    else:
-        zipped = list(zip(titles, info))
-    return zipped
+        final_result.append(list(zip(titles, info)))
+    return final_result
 
 def searchSpecies(user_search):
     final = None
@@ -134,82 +155,84 @@ def searchSpecies(user_search):
     designation = None
     average_height = None
     average_lifespan = None
+    eye_colors = None
+    hair_colors = None
+    skin_colors = None
     language = None
-    info = []
+    homeworld = None
+    final_result = []
     index = 0
-    titles = ['Category', 'Name: ', 'Classification: ', 'Designation: ', 'Average height: ', 'Average lifespan: ', 'Language: ']
+    titles = ['Category: ', 'Name: ', 'Classification: ', 'Designation: ', 'Average height: ', 'Average lifespan: ', 'Eye Colors: ', 'Hair Colors: ', 'Skin Colors: ', 'Language: ']
 
     for results in user_search['results']:
-        category = 'Species'
-        name_ = user_search['results'][index]['name']
-        classification = user_search['results'][index]['classification']
-        designation = user_search['results'][index]['designation']
-        average_height = user_search['results'][index]['average_height']
-        average_lifespan = user_search['results'][index]['average_lifespan']
-        language = user_search['results'][index]['language']
+        info = ['Species']
+        info.append(user_search['results'][index]['name'])
+        info.append(user_search['results'][index]['classification'])
+        info.append(user_search['results'][index]['designation'])
+        info.append(user_search['results'][index]['average_height'] + ' cm')
+        info.append(user_search['results'][index]['average_lifespan'] + 'years')
+        info.append(user_search['results'][index]['eye_colors'])
+        info.append(user_search['results'][index]['hair_colors'])
+        info.append(user_search['results'][index]['skin_colors'])
+        info.append(user_search['results'][index]['language'])
         index += 1
-        info.extend([category, name_, classification, designation, average_height, average_lifespan, language])
-    if len(results) > 1:
-        index += 1
-        zipped = list(zip(titles * index, info))
-    else:
-        zipped = list(zip(titles, info))
-    return zipped
+        final_result.append(list(zip(titles, info)))
+    return final_result
 
 def searchVehicles(user_search):
     final = None
     name_ = None
     model = None
     manufacturer = None
+    length = None
     cost_in_credits = None
+    crew = None
     passengers = None
+    max_atmosphering_speed = None
     cargo_capacity = None
+    consumables = None
     vehicle_class = None
-    info = []
+    final_result = []
     index = 0
-    titles = ['Category', 'Name: ', 'Model: ', 'Manufacturer: ', 'Cost in credits: ', 'Passengers: ', 'Cargo capacity: ', 'Vehicle class: ']
-    print('vehicles: ' + str(len(user_search['results'])))
+    titles = ['Category: ', 'Name: ', 'Model: ', 'Manufacturer: ', 'Length: ', 'Cost in credits: ', 'Crew: ', 'Passengers: ', 'Cargo capacity: ', 'Max Atmosphering Speed: ', 'Consumables: ', 'Vehicle class: ']
+
     for results in user_search['results']:
-        category = 'Vehicles'
-        name_ = user_search['results'][index]['name']
-        model = user_search['results'][index]['model']
-        manufacturer = user_search['results'][index]['manufacturer']
-        cost_in_credits = user_search['results'][index]['cost_in_credits']
-        passengers = user_search['results'][index]['passengers']
-        cargo_capacity = user_search['results'][index]['cargo_capacity']
-        vehicle_class = user_search['results'][index]['vehicle_class']
+        info = ['Vehicles']
+        info.append(user_search['results'][index]['name'])
+        info.append(user_search['results'][index]['model'])
+        info.append(user_search['results'][index]['manufacturer'])
+        info.append(user_search['results'][index]['length'] + ' m')
+        info.append(user_search['results'][index]['cost_in_credits'])
+        info.append(user_search['results'][index]['crew'])
+        info.append(user_search['results'][index]['passengers'])
+        info.append(user_search['results'][index]['cargo_capacity'] + ' kg')
+        info.append(user_search['results'][index]['max_atmosphering_speed'])
+        info.append(user_search['results'][index]['consumables'])
+        info.append(user_search['results'][index]['vehicle_class'])
         index += 1
-        info.extend([category, name_, model, manufacturer, cost_in_credits, passengers, cargo_capacity, vehicle_class])
-    if len(results) > 1:
-        index += 1
-        zipped = list(zip(titles * index, info))
-    else:
-        zipped = list(zip(titles, info))
-    return zipped
+        final_result.append(list(zip(titles, info)))
+    return final_result
 
 def searchFilms(user_search):
     final = None
     title = None
     episode_id = None
+    opening_crawl = None
     director = None
     producer = None
     release_date = None
-    info = []
+    final_result = []
     index = 0
-    titles = ['Category', 'Title: ', 'Episode ID: ', 'Director: ', 'Producer: ', 'Release date: ']
-    print('films: ' + str(len(user_search['results'])))
+    titles = ['Category: ', 'Title: ', 'Episode ID: ', 'Opening Crawl:', 'Director: ', 'Producer: ', 'Release date: ']
+
     for results in user_search['results']:
-        category = 'Films'
-        title = user_search['results'][index]['title']
-        episode_id = user_search['results'][index]['episode_id']
-        director = user_search['results'][index]['director']
-        producer = user_search['results'][index]['producer']
-        release_date = user_search['results'][index]['release_date']
+        info = ['Films']
+        info.append(user_search['results'][index]['title'])
+        info.append(user_search['results'][index]['episode_id'])
+        info.append(user_search['results'][index]['opening_crawl'])
+        info.append(user_search['results'][index]['director'])
+        info.append(user_search['results'][index]['producer'])
+        info.append(user_search['results'][index]['release_date'])
         index += 1
-        info.extend([category, title, episode_id, director, producer, release_date])
-    if len(results) > 1:
-        index += 1
-        zipped = list(zip(titles * index, info))
-    else:
-        zipped = list(zip(titles, info))
-    return zipped
+        final_result.append(list(zip(titles, info)))
+    return final_result
