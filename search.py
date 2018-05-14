@@ -1,3 +1,13 @@
+'''
+Course: CST 205
+Title: search.py
+Abstract: In this file, defineApi defines where to look for the results, and then based on that
+          runs functions that get the right information, like searchPerson, etc.
+Authors: Maud Werkman, Ricardo Baca, Alexander Redman
+Date: 5-14-2018
+Github: https://github.com/aredmancsumb/Team-8-Master-Repo
+'''
+
 import requests
 from pprint import pprint
 
@@ -9,32 +19,31 @@ def defineApi(user_search):
     for url in swapi_urls:
 
         params = {
-            'search': user_search
+            'search': user_search       #here we get the users input
         }
 
         r = requests.get(url, params=params)
-        data.append(r.json())
-    if user_search != '':
-        for api in data:
-            if api['count'] >= 1:
-                if api == data[0]:
-                    results.append(searchFilms(data[0]))
-                if api == data[1]:
-                    results.append(searchPerson(data[1]))
-                if api == data[2]:
-                    results.append(searchPlanet(data[2]))
-                if api == data[3]:
-                    results.append(searchSpecies(data[3]))
-                if api == data[4]:
-                    results.append(searchStarShips(data[4]))
-                if api == data[5]:
-                    results.append(searchVehicles(data[5]))
-    elif user_search == '':
+        data.append(r.json())  #data contains all the info from all the different api urls (films, people, etc.)
+    for api in data:           #for every piece that is in data, which are results for all the different urls
+        if api['count'] >= 1:  #if there are one or more results
+            if api == data[0]:                          #check where this result is, so this would be for films (index 0 in swapi_urls)
+                results.append(searchFilms(data[0]))    #and then get the right info by looking through searchFilms with this data
+            if api == data[1]:                          #append this to the results.
+                results.append(searchPerson(data[1]))
+            if api == data[2]:                          #this is what we did for all of different categories, from films to vehicles
+                results.append(searchPlanet(data[2]))
+            if api == data[3]:
+                results.append(searchSpecies(data[3]))
+            if api == data[4]:
+                results.append(searchStarShips(data[4]))
+            if api == data[5]:
+                results.append(searchVehicles(data[5]))
+    if user_search == '':  #if there is no user input, there are no results either.
         results = ''
-    elif user_search in 'planets':
-        r = requests.get(swapi_urls[2], params={'search':''})
-        data.append(r.json())
-        results.append(searchPlanet(data[6]))
+    elif user_search in 'planets':                                  #to create more general answers, try if the user search is in a word
+        r = requests.get(swapi_urls[2], params={'search':''})       #then search the whole api with ''
+        data.append(r.json())                                       #so that it returns everything,
+        results.append(searchPlanet(data[6]))                       #and this returns the first 10 items and adds it to results.
     elif user_search in 'films':
         r = requests.get(swapi_urls[0], params={'search':''})
         data.append(r.json())
@@ -56,10 +65,10 @@ def defineApi(user_search):
         r = requests.get(swapi_urls[1], params={'search':''})
         data.append(r.json())
         results.append(searchPerson(data[6]))
-    return results
+    return results  #results get passed back to the hello.py, and from there into the main.html page
 
 def searchPerson(user_search):
-    final = None
+    final = None                #first define all the empty variables and lists
     name_ = None
     height = None
     mass = None
@@ -70,11 +79,11 @@ def searchPerson(user_search):
     eye_color = None
     final_result = []
     index = 0
-    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ']
+    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ', 'URL: ']
 
-    for results in user_search['results']:
+    for results in user_search['results']:                             #for every result in an api, it checks the info
         info = ['People']
-        info.append(user_search['results'][index]['name'])
+        info.append(user_search['results'][index]['name'])                 #here it gets the name, and so on
         info.append(user_search['results'][index]['height'] + " cm")
         info.append(user_search['results'][index]['mass'] + " kg")
         info.append(user_search['results'][index]['gender'])
@@ -83,10 +92,10 @@ def searchPerson(user_search):
         info.append(user_search['results'][index]['skin_color'])
         info.append(user_search['results'][index]['eye_color'])
         index += 1
-        final_result.append(list(zip(titles, info)))
-    return final_result
-
-def searchPlanet(user_search):
+        final_result.append(list(zip(titles, info)))                   #for every result, it appends a zipped list to final_result,
+    return final_result                                                #which is returned to defineApi
+                                                                       #the zipped list makes it so that the information is paired with a title.
+def searchPlanet(user_search):                                         #this is the same thing for the other functions.
     final = None
     name_ = None
     rotation_period = None
