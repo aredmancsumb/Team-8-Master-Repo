@@ -24,44 +24,44 @@ def defineApi(user_search):
 
         r = requests.get(url, params=params)
         data.append(r.json())  #data contains all the info from all the different api urls (films, people, etc.)
-    for api in data:           #for every piece that is in data, which are results for all the different urls
-        if api['count'] >= 1:  #if there are one or more results
-            if api == data[0]:                          #check where this result is, so this would be for films (index 0 in swapi_urls)
-                results.append(searchFilms(data[0]))    #and then get the right info by looking through searchFilms with this data
-            if api == data[1]:                          #append this to the results.
-                results.append(searchPerson(data[1]))
-            if api == data[2]:                          #this is what we did for all of different categories, from films to vehicles
-                results.append(searchPlanet(data[2]))
-            if api == data[3]:
-                results.append(searchSpecies(data[3]))
-            if api == data[4]:
-                results.append(searchStarShips(data[4]))
-            if api == data[5]:
-                results.append(searchVehicles(data[5]))
+    if user_search != '':
+        for api in data:           #for every piece that is in data, which are results for all the different urls
+            if api['count'] >= 1:  #if there are one or more results
+                if api == data[0]:                          #check where this result is, so this would be for films (index 0 in swapi_urls)
+                    results.append(searchFilms(data[0]))    #and then get the right info by looking through searchFilms with this data
+                if api == data[1]:                          #append this to the results.
+                    results.append(searchPerson(data[1]))
+                if api == data[2]:                          #this is what we did for all of different categories, from films to vehicles
+                    results.append(searchPlanet(data[2]))
+                if api == data[3]:
+                    results.append(searchSpecies(data[3]))
+                if api == data[4]:
+                    results.append(searchStarShips(data[4]))
+                if api == data[5]:
+                    results.append(searchVehicles(data[5]))
     if user_search == '':  #if there is no user input, there are no results either.
         results = ''
-    elif user_search in 'planets':                                  #to create more general answers, try if the user search is in a word
+    if user_search in 'planets':                                  #to create more general answers, try if the user search is in a word
         r = requests.get(swapi_urls[2], params={'search':''})       #then search the whole api with ''
         data.append(r.json())                                       #so that it returns everything,
         results.append(searchPlanet(data[6]))                       #and this returns the first 10 items and adds it to results.
-    elif user_search in 'films':
+    if user_search in 'films':
         r = requests.get(swapi_urls[0], params={'search':''})
         data.append(r.json())
         results.append(searchFilms(data[6]))
-    elif user_search in 'starships':
+    if user_search in 'starships':
         r = requests.get(swapi_urls[4], params={'search':''})
         data.append(r.json())
         results.append(searchPerson(data[6]))
-    elif user_search in 'species':
+    if user_search in 'species':
         r = requests.get(swapi_urls[3], params={'search':''})
         data.append(r.json())
         results.append(searchPerson(data[6]))
-    elif user_search in 'vehicles':
+    if user_search in 'vehicles':
         r = requests.get(swapi_urls[5], params={'search':''})
         data.append(r.json())
         results.append(searchVehicles(data[6]))
-    else:
-        filter(user_search, ['people', 'persons', 'characters'])
+    if user_search in 'people persons characters':
         r = requests.get(swapi_urls[1], params={'search':''})
         data.append(r.json())
         results.append(searchPerson(data[6]))
