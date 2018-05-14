@@ -36,12 +36,14 @@ def results():
     if request.method == 'POST':
         name=request.form['name']
         result = defineApi(name)
-        full_name = result[0][0][1][1]
+        if name != '' and result != []:
+            full_name = result[0][0][1][1]
     if name == '':
         extra_info = 'Please enter a valid search term.'
+        full_name = 'Try Again'
     if result == []:
         extra_info = 'Please try again. For a detailed result, try searching for a name.'
+        full_name = 'Try Again'
     return render_template('main.html', form=form, final=result, user_search=name, extra_info=extra_info, full_name=full_name)
-
 if __name__ == "__main__":
     app.run()
