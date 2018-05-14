@@ -10,11 +10,10 @@
         <div class="extra_info">{{extra_info}}</div>
 
         <a href="{{url_for('hello')}}">back to search</a>
-
+        <img src="{{ url_for('static', filename=full_name + '.jpg') }}" align="middle">
         <div class="container">
             {% for results in final %}
                 {% for elems in results %}
-
                     <table class='result'>
                         <tr class="title_row"><td colspan="2"><h2 class="title">{{elems[1][1]}}</h2></td></tr>
                         {% for finalelements in elems %}

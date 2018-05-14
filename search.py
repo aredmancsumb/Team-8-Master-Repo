@@ -13,6 +13,7 @@ def defineApi(user_search):
         }
 
         r = requests.get(url, params=params)
+        print(url)
         data.append(r.json())
     if user_search != '':
         for api in data:
@@ -70,7 +71,7 @@ def searchPerson(user_search):
     eye_color = None
     final_result = []
     index = 0
-    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ']
+    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ', 'URL: ']
 
     for results in user_search['results']:
         info = ['People']
