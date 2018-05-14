@@ -3,10 +3,9 @@ body {
     background-color: black;
 }
 
-
 body form {
     text-align: center;
-    margin-top: 20%;
+    margin-top: 5%;
 }
 
 form div input[type=text] {
@@ -48,4 +47,17 @@ form div input[type=submit] {
 form div input[type=submit]:hover {
     cursor: pointer;
     background-color: goldenRod;
+}
+
+h1 {
+    color: gold;
+    font-family: "Lucida Sans Unicode" !important;
+    text-align: center;
+    font-size: 45px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

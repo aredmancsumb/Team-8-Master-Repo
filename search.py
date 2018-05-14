@@ -15,22 +15,22 @@ def defineApi(user_search):
 
         r = requests.get(url, params=params)
         data.append(r.json())
-
-    for api in data:
-        if api['count'] >= 1:
-            if api == data[0]:
-                results.append(searchFilms(data[0]))
-            if api == data[1]:
-                results.append(searchPerson(data[1]))
-            if api == data[2]:
-                results.append(searchPlanet(data[2]))
-            if api == data[3]:
-                results.append(searchSpecies(data[3]))
-            if api == data[4]:
-                results.append(searchStarShips(data[4]))
-            if api == data[5]:
-                results.append(searchVehicles(data[5]))
-    if user_search == '':
+    if user_search != '':
+        for api in data:
+            if api['count'] >= 1:
+                if api == data[0]:
+                    results.append(searchFilms(data[0]))
+                if api == data[1]:
+                    results.append(searchPerson(data[1]))
+                if api == data[2]:
+                    results.append(searchPlanet(data[2]))
+                if api == data[3]:
+                    results.append(searchSpecies(data[3]))
+                if api == data[4]:
+                    results.append(searchStarShips(data[4]))
+                if api == data[5]:
+                    results.append(searchVehicles(data[5]))
+    elif user_search == '':
         results = ''
     elif user_search in 'planets':
         r = requests.get(swapi_urls[2], params={'search':''})
