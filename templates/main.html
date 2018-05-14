@@ -1,3 +1,13 @@
+<!--
+Course: CST 205
+Title: main.html
+Abstract: In this file, the results are printed onto the page, in a way that it creates a new 'card' for
+          every result, and it gives it a title and shows the information.
+Authors: Maud Werkman, Ricardo Baca, Alexander Redman
+Date: 5-14-2018
+Github: https://github.com/aredmancsumb/Team-8-Master-Repo
+-->
+
 {% block content %}
 <html>
     <head>
@@ -6,11 +16,20 @@
     </head>
     <body>
         <img src="{{ url_for('static', filename='star_wars_logo11.png') }}" alt="">
+        <!--
+         #all images in project added and worked on by Alexander Redman
+         -->
         <div class="title">Results for "{{user_search}}"</div>
         <div class="extra_info">{{extra_info}}</div>
 
         <a href="{{url_for('hello')}}">back to search</a>
         <img src="{{ url_for('static', filename=full_name + '.jpg') }}" align="middle">
+
+        <!-- this div loops through all the information it gets from hello.py (= final) and then
+             makes a new table for every seperate result, and then returns all the info that is in there so that
+             the title and the value are next to each other.
+        -->
+
         <div class="container">
             {% for results in final %}
                 {% for elems in results %}
