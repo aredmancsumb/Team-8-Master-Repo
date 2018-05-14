@@ -1,7 +1,6 @@
 import requests
 from pprint import pprint
 
-
 swapi_urls = ['https://swapi.co/api/films/', 'https://swapi.co/api/people/', 'https://swapi.co/api/planets/', 'https://swapi.co/api/species/', 'https://swapi.co/api/starships/', 'https://swapi.co/api/vehicles/']
 
 def defineApi(user_search):
@@ -14,43 +13,51 @@ def defineApi(user_search):
         }
 
         r = requests.get(url, params=params)
+        print(url)
         data.append(r.json())
-    pprint(data)
-    for api in data:
-        if api['count'] >= 1:
-            if api == data[0]:
-                results.append(searchFilms(data[0]))
-            if api == data[1]:
-                results.append(searchPerson(data[1]))
-            if api == data[2]:
-                results.append(searchPlanet(data[2]))
-            if api == data[3]:
-                results.append(searchSpecies(data[3]))
-            if api == data[4]:
-                results.append(searchStarShips(data[4]))
-            if api == data[5]:
-                results.append(searchVehicles(data[5]))
+    if user_search != '':
+        for api in data:
+            if api['count'] >= 1:
+                if api == data[0]:
+                    results.append(searchFilms(data[0]))
+                if api == data[1]:
+                    results.append(searchPerson(data[1]))
+                if api == data[2]:
+                    results.append(searchPlanet(data[2]))
+                if api == data[3]:
+                    results.append(searchSpecies(data[3]))
+                if api == data[4]:
+                    results.append(searchStarShips(data[4]))
+                if api == data[5]:
+                    results.append(searchVehicles(data[5]))
+    elif user_search == '':
+        results = ''
+    elif user_search in 'planets':
+        r = requests.get(swapi_urls[2], params={'search':''})
+        data.append(r.json())
+        results.append(searchPlanet(data[6]))
+    elif user_search in 'films':
+        r = requests.get(swapi_urls[0], params={'search':''})
+        data.append(r.json())
+        results.append(searchFilms(data[6]))
+    elif user_search in 'starships':
+        r = requests.get(swapi_urls[4], params={'search':''})
+        data.append(r.json())
+        results.append(searchPerson(data[6]))
+    elif user_search in 'species':
+        r = requests.get(swapi_urls[3], params={'search':''})
+        data.append(r.json())
+        results.append(searchPerson(data[6]))
+    elif user_search in 'vehicles':
+        r = requests.get(swapi_urls[5], params={'search':''})
+        data.append(r.json())
+        results.append(searchVehicles(data[6]))
+    else:
+        filter(user_search, ['people', 'persons', 'characters'])
+        r = requests.get(swapi_urls[1], params={'search':''})
+        data.append(r.json())
+        results.append(searchPerson(data[6]))
     return results
-
-    for api in data:
-        if api['count'] >= 1:
-            if api == data[0]:
-                results.append(searchFilms(data[0]))
-            if api == data[1]:
-                results.append(searchPerson(data[1]))
-            if api == data[2]:
-                results.append(searchPlanet(data[2]))
-            if api == data[3]:
-                results.append(searchSpecies(data[3]))
-            if api == data[4]:
-                results.append(searchStarShips(data[4]))
-            if api == data[5]:
-                results.append(searchVehicles(data[5]))
-    if user_search == '':
-        results = []
-    return results
-
-
 
 def searchPerson(user_search):
     final = None
@@ -64,7 +71,7 @@ def searchPerson(user_search):
     eye_color = None
     final_result = []
     index = 0
-    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ']
+    titles = ['Category: ', 'Name: ', 'Height: ', 'Mass: ', 'Gender: ', 'Hair Color: ', 'Birth year: ', 'Skin color: ', 'Eye color: ', 'URL: ']
 
     for results in user_search['results']:
         info = ['People']

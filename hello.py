@@ -15,30 +15,26 @@ class ReusableForm(Form):
 def hello():
 
     form = ReusableForm(request.form)   #for is the users search
-    #print(form)
-    #print (form.errors)
-    if request.method == 'POST':
-        name=request.form['name']
-        #result = defineApi(name)
-        #print (name)  #prints users search to the console
-
-        #if result == None:
-            #rusult = 'try again'
 
     return render_template('hello.html', form=form)
 
 @app.route("/results", methods=['GET', 'POST'])
 def results():
-    result = None
-
+    result = []
+    extra_info = ''
+    name = ''
     form = ReusableForm(request.form)   #form is the users search
     if request.method == 'POST':
-        name=request.form['name']
+        name = request.form['name']
         result = defineApi(name)
-        if result == []:
-            result = [[[["try again"]]]]
-    return render_template('main.html', form=form, final=result, user_search=name)
-
-
+        if name != '' and result != []:
+            full_name = result[0][0][1][1]
+    if name == '':
+        extra_info = 'Please enter a valid search term.'
+        full_name = 'Try Again'
+    if result == []:
+        extra_info = 'Please try again. For a detailed result, try searching for a name.'
+        full_name = 'Try Again'
+    return render_template('main.html', form=form, final=result, user_search=name, extra_info=extra_info, full_name=full_name)
 if __name__ == "__main__":
     app.run()

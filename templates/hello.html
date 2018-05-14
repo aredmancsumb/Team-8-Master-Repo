@@ -5,17 +5,17 @@
     </head>
 
     <body>
-      <center><img src="{{ url_for('static', filename='star_wars_logo11.png') }}" alt=""></center>
-        <h1 style="color:gold;" align="middle">Database Search Engine </h1>
+        <img src="{{ url_for('static', filename='star_wars_logo11.png') }}" alt="">
+        <h1>Database Search Engine </h1>
         <form action="{{url_for('results')}}" method="post">
             {{ form.csrf }}
 
             <div class="input text">
-                <!--{{ form.name.label }} -->{{ form.name(placeholder='Luke Skywalker') }}
+                {{ form.name(placeholder='Luke Skywalker') }}
             </div>
 
             <div class="input submit">
-                <input type="submit" value="Search" />
+                <input type="Submit" name="Search" value="Search" />
             </div>
         </form>
     </body>
